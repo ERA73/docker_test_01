@@ -1,1 +1,4 @@
 env/
+app/pruebadkr/hacker_news/migrations
+app/pruebadkr/hacker_news/__pycache__
+*.pyc
