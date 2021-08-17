@@ -16,7 +16,7 @@ def is_integer(value):
 		return False
 
 def busqueda(request, inicio = 0, final = 0):
-	# print(f"inicio:{inicio}, final:{final}")
+	print("inicio:{}, final:{}".format(inicio, final))
 	url = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
 	# text = json.dumps(url.text)
 	data = {}
@@ -24,7 +24,7 @@ def busqueda(request, inicio = 0, final = 0):
 		identificaciones = url.json()
 		identificaciones = identificaciones[inicio:inicio+final]
 		for identificacion in identificaciones:
-			url_detalle = requests.get(f"https://hacker-news.firebaseio.com/v0/item/{identificacion}.json?print=pretty")
+			url_detalle = requests.get("https://hacker-news.firebaseio.com/v0/item/{}.json?print=pretty".format(identificacion))
 			# detalle = url_detalle.json()
 			detalle = url_detalle.text
 			data[identificacion] = detalle
