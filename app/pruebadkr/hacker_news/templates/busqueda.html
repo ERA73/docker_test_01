@@ -18,6 +18,7 @@
 			height: 80vh;
 			width: 100vw;
 			background: #ccc;
+			overflow-y: scroll;
 		}
 	</style>
 </head>
@@ -74,9 +75,9 @@ $(document).ready(function() {
 					resultado.html(mostrar)
 				},
 				error: function() {
-					console.log("A ocurrido un error")
+					Alerta("Tiempo de espera excedido.")
 				},
-				timeout: 2000
+				timeout: 10000
 			})
 		}else{
 			alert("valores incorrectos")
