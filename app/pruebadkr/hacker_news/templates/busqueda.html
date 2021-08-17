@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<title>Busqueda de noticias</title>
+	<style>
+		.parametros{
+			display: block;
+			width: 200px;
+			background: #ccc;
+			border: black solid 2px;
+		}
+		.panel{
+			display: block;
+			height: 80vh;
+			width: 100vw;
+			background: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="parametros">
+		<form action="#"  id="formulario">
+			<Label>Indice Inicial</Label>
+			<input type="number" id="inicio" value="0">
+			<br>
+			<Label>Indice Final</Label>
+			<input type="number" id="final" value="0">
+			<input type="submit" value="Buscar" id="buscar">
+		</form>
+	</div>
+	<div id="resultado" class="panel">
+
+	</div>
+</body>
+<script>
+	'use_strict'
+
+$(document).ready(function() {
+    // Load
+    var resultado = $("#resultado")
+
+	$("#formulario").submit(function(event) {
+        event.preventDefault()
+		inicio = $("#inicio").val()
+		final = $("#final").val()
+		console.log(inicio)
+		console.log(final)
+		if (inicio != "" & final != "" & parseInt(inicio) >= 0 & parseInt(final) >= parseInt(inicio)){
+			$.ajax({
+				type: "GET",
+				// dataType: "json",
+				// contentType: "application/json"
+				url: `http://127.0.0.1:8000/busqueda/inicio=${inicio}/final=${final}/`,
+				// data: usuario,
+				beforeSend: function() {
+					console.log("enviando busqueda")
+				},
+				success: function(response) {
+					console.log(response)
+					var mostrar = ""
+					// response.data.forEach((element, index) => {
+					// 	mostrar.append(`<p>${element.nombre}, ${element.apellido}</p>`)
+					// });
+					$.each(response, function (i, member) {
+						for (var i in member) {
+							console.log(member[i])
+							mostrar = mostrar + `<p>${member[i]}</p>`
+						}
+					});
+					resultado.html(mostrar)
+				},
+				error: function() {
+					console.log("A ocurrido un error")
+				},
+				timeout: 2000
+			})
+		}else{
+			alert("valores incorrectos")
+		}
+        return false
+    })
+})
+</script>
+</html>
