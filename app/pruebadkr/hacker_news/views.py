@@ -15,14 +15,14 @@ def is_integer(value):
 	except:
 		return False
 
-def busqueda(request, inicio = 0, final = 0):
-	print("inicio:{}, final:{}".format(inicio, final))
+def busqueda(request, inicio = 0, cantidad = 0):
+	print("inicio:{}, cantidad:{}".format(inicio, cantidad))
 	url = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json?")
 	# text = json.dumps(url.text)
 	data = {}
-	if is_integer(inicio) and is_integer(final) and int(inicio) >= 0 and int(final) > int(inicio):
+	if is_integer(inicio) and is_integer(cantidad) and int(inicio) >= 0 and int(cantidad) > 0:
 		identificaciones = url.json()
-		identificaciones = identificaciones[inicio:inicio+final]
+		identificaciones = identificaciones[inicio:inicio+cantidad]
 		for identificacion in identificaciones:
 			url_detalle = requests.get("https://hacker-news.firebaseio.com/v0/item/{}.json?print=pretty".format(identificacion))
 			# detalle = url_detalle.json()

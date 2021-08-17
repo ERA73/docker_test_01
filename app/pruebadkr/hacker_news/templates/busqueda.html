@@ -25,11 +25,11 @@
 <body>
 	<div class="parametros">
 		<form action="#"  id="formulario">
-			<Label>Indice Inicial</Label>
+			<Label>Indice de Inicio:</Label>
 			<input type="number" id="inicio" value="0">
 			<br>
-			<Label>Indice Final</Label>
-			<input type="number" id="final" value="0">
+			<Label>Cantidad de noticias:</Label>
+			<input type="number" id="cantidad" value="1">
 			<input type="submit" value="Buscar" id="buscar">
 		</form>
 	</div>
@@ -47,15 +47,15 @@ $(document).ready(function() {
 	$("#formulario").submit(function(event) {
         event.preventDefault()
 		inicio = $("#inicio").val()
-		final = $("#final").val()
+		cantidad = $("#cantidad").val()
 		console.log(inicio)
-		console.log(final)
-		if (inicio != "" & final != "" & parseInt(inicio) >= 0 & parseInt(final) >= parseInt(inicio)){
+		console.log(cantidad)
+		if (inicio != "" & cantidad != "" & parseInt(inicio) >= 0 & parseInt(cantidad) > 0){
 			$.ajax({
 				type: "GET",
 				// dataType: "json",
 				// contentType: "application/json"
-				url: `/busqueda/inicio=${inicio}/final=${final}/`,
+				url: `/busqueda/inicio=${inicio}/cantidad=${cantidad}/`,
 				// data: usuario,
 				beforeSend: function() {
 					console.log("enviando busqueda")
