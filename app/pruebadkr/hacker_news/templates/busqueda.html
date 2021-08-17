@@ -54,7 +54,7 @@ $(document).ready(function() {
 				type: "GET",
 				// dataType: "json",
 				// contentType: "application/json"
-				url: `http://127.0.0.1:8000/busqueda/inicio=${inicio}/final=${final}/`,
+				url: `/busqueda/inicio=${inicio}/final=${final}/`,
 				// data: usuario,
 				beforeSend: function() {
 					console.log("enviando busqueda")
