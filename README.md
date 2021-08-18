@@ -1,7 +1,7 @@
 # Pasos para montar Django y Redis en Docker (UBUNTU 20.04)
 
 ## **DJango:**
-
+### **Preparar el proyecto**
 * Desde la carpeta default(~) clonar el repositorio https://github.com/ERA73/docker_test_01.git
 	* git clone https://github.com/ERA73/docker_test_01.git hacker_news
 
@@ -55,9 +55,9 @@ CMD ["runserver", "0.0.0.0:80"]
 * ejecutar las migraciones
 	* python manage.py migrate
 
-## Montar el contenedor con Django
+### **Montar el contenedor con Django**
 * docker build -t python-django-app .
-## Ejecutar el contenedor
+### **Ejecutar el contenedor**
 * docker run -it -p 80:80 python-django-app
 
 ## **Redis**
@@ -65,6 +65,20 @@ CMD ["runserver", "0.0.0.0:80"]
 * Crear carpeta db
 	* mkdir db
 	* cd db
+	* nano Dockerfile
+```
+FROM        ubuntu:20.04
+RUN         apt-get update && apt-get install -y redis-server
+EXPOSE      6379
+ENTRYPOINT  ["/usr/bin/redis-server"]
+```
 
-* ejecutar redis
-	* docker exec -it rdb redis-cli
+* construir el contenedor
+	* docker build -t root/redis .
+
+* ejecutar redis en el contenedor
+	* docker run -d --name redis -p 6379:6379 root/redis
+
+### **Validar Redis**
+* ejecutar el cliente de redis
+	* docker exec -it redis redis-cli

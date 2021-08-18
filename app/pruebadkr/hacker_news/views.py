@@ -1,10 +1,14 @@
 import requests, json
+import time
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
+# from django.utils.decorators import method_decorator
 
-#@method_decorator(cache_page(100, key_prefix='main'), name='dispatch')
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
 def index(request):
     return render(request, "busqueda.html", {})
 
@@ -15,7 +19,9 @@ def is_integer(value):
 	except:
 		return False
 
+@cache_page(CACHE_TTL)
 def busqueda(request, inicio = 0, cantidad = 0):
+	init = time.time()
 	print("inicio:{}, cantidad:{}".format(inicio, cantidad))
 	url = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json?")
 	# text = json.dumps(url.text)
@@ -30,4 +36,5 @@ def busqueda(request, inicio = 0, cantidad = 0):
 			data[identificacion] = detalle
 		# data["usuario_2"] = {"nombre":"Menganita", "apellido":"soles"}
 	response_data = {"data":data}
+	print("Tiempo total:{}".format(time.time()-init))
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
