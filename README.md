@@ -1,7 +1,10 @@
 # Pasos para montar Django y Redis en Docker (UBUNTU 20.04)
 
+## Descripcion
+Este proyecto contiene una aplicacion **Django** que busca informacion en linea y usa **redis** como cache para los resultados de la busqueda, ademas se describe a continuacion como hacer el montage de este proyecto en un servidor **Ubuntu_20.04** usando contenedores **Docker** para ejecutar **redis** y **Django**.
 ## **DJango:**
 ### **Preparar el proyecto**
+
 * Desde la carpeta default(~) clonar el repositorio https://github.com/ERA73/docker_test_01.git
 	* git clone https://github.com/ERA73/docker_test_01.git hacker_news
 
